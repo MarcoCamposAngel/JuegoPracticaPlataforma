@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhmi7603rw3u0"]
+
+[ext_resource type="Script" uid="uid://b1ceqtbvmwcjy" path="res://Scripts/PersonajePrueba/personaje_prueba.gd" id="1_fpvrd"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_i01fn"]
+size = Vector3(3, 5, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fpvrd"]
+size = Vector3(3, 5, 3)
+
+[node name="PersonajePrueba" type="CharacterBody3D"]
+script = ExtResource("1_fpvrd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_i01fn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_fpvrd")
