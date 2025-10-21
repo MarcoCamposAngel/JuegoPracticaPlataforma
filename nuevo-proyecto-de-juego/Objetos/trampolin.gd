@@ -27,4 +27,4 @@ func _integrate_forces(state):
 			
 			var normal_superficie = (rigidbody.global_transform.basis * direccion_superficie).normalized()
 			
-			collider.velocity += normal_superficie * fuerza_impulso
+			collider.launch(normal_superficie * fuerza_impulso)
