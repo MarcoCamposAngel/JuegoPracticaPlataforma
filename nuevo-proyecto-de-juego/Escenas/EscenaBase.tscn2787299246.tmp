@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://8gwkm0r15him"]
+[gd_scene load_steps=6 format=3 uid="uid://8gwkm0r15him"]
 
 [ext_resource type="PackedScene" uid="uid://uu1avj3yb0mv" path="res://Objetos/Cubo.tscn" id="1_x21ax"]
 [ext_resource type="PackedScene" uid="uid://bhmi7603rw3u0" path="res://Objetos/personaje_prueba.tscn" id="2_b0te4"]
+[ext_resource type="PackedScene" uid="uid://bw03st07qmh5x" path="res://Objetos/trampolin.tscn" id="3_uqu8t"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ss6bw"]
 size = Vector3(50, 1, 50)
@@ -28,13 +29,11 @@ shadow_enabled = true
 [node name="RigidBody3D" parent="." instance=ExtResource("1_x21ax")]
 transform = Transform3D(1, 0, 0, 0, 0.8346941, 0.55071384, 0, -0.55071384, 0.8346941, 15.424164, 26.944992, 0)
 
-[node name="Camara" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 22.418266, 29.011932)
-
-[node name="PersonajePrueba" parent="." node_paths=PackedStringArray("cam_camara") instance=ExtResource("2_b0te4")]
+[node name="PersonajePrueba" parent="." instance=ExtResource("2_b0te4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.0929737, 0)
-f_velocidad = 15.0
-f_velocidad_caida = -30.0
-f_velocidad_salto = 30.0
-f_altura_maxima_salto = 5.0
-cam_camara = NodePath("../Camara")
+
+[node name="Camara" type="Camera3D" parent="PersonajePrueba"]
+transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 18.325293, 29.011932)
+
+[node name="Trampolin" parent="." instance=ExtResource("3_uqu8t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.09526348, 4.5344534)
