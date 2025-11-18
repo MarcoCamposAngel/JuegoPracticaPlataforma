@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://8gwkm0r15him"]
+[gd_scene load_steps=6 format=3 uid="uid://8gwkm0r15him"]
 
 [ext_resource type="PackedScene" uid="uid://uu1avj3yb0mv" path="res://Objetos/Cubo.tscn" id="1_x21ax"]
 [ext_resource type="PackedScene" uid="uid://bhmi7603rw3u0" path="res://Objetos/personaje_prueba.tscn" id="2_b0te4"]
+[ext_resource type="PackedScene" uid="uid://bw03st07qmh5x" path="res://Objetos/trampolin.tscn" id="3_uqu8t"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ss6bw"]
 size = Vector3(50, 1, 50)
@@ -12,7 +13,7 @@ size = Vector3(50, 1, 50)
 [node name="NodoBase" type="Node3D"]
 
 [node name="Suelo" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.5, 0)
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Suelo"]
@@ -37,4 +38,18 @@ f_velocidad = 15.0
 f_velocidad_caida = -30.0
 f_velocidad_salto = 30.0
 f_altura_maxima_salto = 5.0
+f_friccion_suelo = 10.0
+f_friccion_aire = 5.0
 cam_camara = NodePath("../Camara")
+
+[node name="Trampolin" parent="." instance=ExtResource("3_uqu8t")]
+transform = Transform3D(4.2654333, -0.52176917, 0, 2.6088462, 0.85308677, 0, 0, 0, 4.9999995, 39.245537, 3.8921614, 0)
+fuerza_impulso = 20.0
+
+[node name="Trampolin2" parent="." instance=ExtResource("3_uqu8t")]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 5, -22.461191, 1.948287, 0.8713217)
+fuerza_impulso = 35.0
+
+[node name="Trampolin3" parent="." instance=ExtResource("3_uqu8t")]
+transform = Transform3D(5, 0, 0, 0, 0.3537034, -4.6767874, 0, 0.93535745, 1.768517, 0, 6.2346926, -28.726845)
+fuerza_impulso = 30.0
