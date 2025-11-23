@@ -11,10 +11,9 @@ extends CharacterBody3D
 @export var gravedad_salto := -12.0        # mientras sube
 
 @export var cam_camara : Camera3D
-
+@export var moverse_aire := false
 
 # Variables internas
-var direccion := Vector3.ZERO
 var raton_capturado := true
 
 func _ready() -> void:
@@ -32,23 +31,14 @@ func _physics_process(delta: float) -> void:
 	# Salta en caso de pulsar el boton asociado al salto
 	saltar()
 
-	# Mover al personaje
-	var direccion = obtener_direccion_movimiento()
-	
-	if direccion != Vector3.ZERO:
-		velocity.x = direccion.x * f_velocidad
-		velocity.z = direccion.z * f_velocidad
-	else:
-		if is_on_floor():
-			velocity.x = move_toward(velocity.x, 0, f_friccion_suelo * delta)
-			velocity.z = move_toward(velocity.z, 0, f_friccion_suelo * delta)
-		else:
-			velocity.x = move_toward(velocity.x, 0, f_friccion_aire * delta)
-			velocity.z = move_toward(velocity.z, 0, f_friccion_aire * delta)
-
+	# Ajustar la velocidad del personaje y moverlo en base a esta
+	ajustar_velocidad(delta, obtener_direccion_movimiento())
 	move_and_slide()
+	
+	# Aplica impulse en caso de detectar un trampolin
+	detectar_trampolin()
 
-	# Detectar trampolines y aplicar rebote
+func detectar_trampolin() -> void:
 	for i in range(get_slide_collision_count()):
 		var col = get_slide_collision(i)
 		var collider = col.get_collider()
@@ -57,13 +47,25 @@ func _physics_process(delta: float) -> void:
 		if posible_trampolin is Trampolin:
 			aplicar_impulso_trampolin(posible_trampolin)
 
-# Función de impulso del trampolín
 func aplicar_impulso_trampolin(trampolin: Trampolin) -> void:
 	var normal = trampolin.get_normal().normalized()
 	var potencia = trampolin.get_potencia()
 	velocity += normal * potencia
 
-# Funcion para el salto
+func ajustar_velocidad(delta: float, direccion: Vector3) -> void:
+	if direccion != Vector3.ZERO:
+		if is_on_floor() or moverse_aire:
+			velocity.x = direccion.x * f_velocidad
+			velocity.z = direccion.z * f_velocidad
+	else:
+		if is_on_floor():
+			velocity.x = move_toward(velocity.x, 0, f_friccion_suelo * delta)
+			velocity.z = move_toward(velocity.z, 0, f_friccion_suelo * delta)
+		else:
+			if moverse_aire:
+				velocity.x = move_toward(velocity.x, 0, f_friccion_aire * delta)
+				velocity.z = move_toward(velocity.z, 0, f_friccion_aire * delta)
+
 func saltar() -> void:
 	if Input.is_action_just_pressed("saltar") and is_on_floor():
 		velocity.y = f_velocidad_salto

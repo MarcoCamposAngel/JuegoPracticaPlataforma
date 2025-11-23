@@ -27,11 +27,13 @@ shape = SubResource("BoxShape3D_ss6bw")
 [node name="PersonajePrueba" parent="." node_paths=PackedStringArray("cam_camara") instance=ExtResource("2_b0te4")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 10, 0)
 script = ExtResource("3_8vix5")
-gravedad_caida = -20.0
-f_friccion_suelo = 1000.0
-f_velocidad_salto = 7.0
-gravedad_salto = -12.0
+f_velocidad = 30.0
+gravedad_caida = -60.0
+f_friccion_suelo = 10000.0
+f_velocidad_salto = 25.0
+gravedad_salto = -75.0
 cam_camara = NodePath("../Camara")
+moverse_aire = false
 metadata/_edit_group_ = true
 
 [node name="Punto_primera_persona2" type="Node3D" parent="PersonajePrueba"]
