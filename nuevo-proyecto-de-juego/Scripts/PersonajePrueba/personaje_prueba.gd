@@ -50,8 +50,7 @@ func _physics_process(delta: float) -> void:
 	# Entrada de movimiento
 	var entrada_direccion = Vector2(
 		Input.get_action_strength("mover_derecha") - Input.get_action_strength("mover_izquierda"),
-		Input.get_action_strength("mover_arriba") - Input.get_action_strength("mover_abajo")
-	)
+		Input.get_action_strength("mover_arriba") - Input.get_action_strength("mover_abajo"))
 
 	var direccion = Vector3.ZERO
 	var cam_delante = -cam_camara.transform.basis.z

@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://8gwkm0r15him"]
+[gd_scene load_steps=8 format=3 uid="uid://8gwkm0r15him"]
 
 [ext_resource type="PackedScene" uid="uid://uu1avj3yb0mv" path="res://Objetos/Cubo.tscn" id="1_x21ax"]
+[ext_resource type="Script" uid="uid://uhd2ygtrgfa2" path="res://Scripts/Camara/camara.gd" id="2_85k6h"]
 [ext_resource type="PackedScene" uid="uid://bhmi7603rw3u0" path="res://Objetos/personaje_prueba.tscn" id="2_b0te4"]
+[ext_resource type="Script" uid="uid://boqx4e5lmdrfa" path="res://Scripts/PersonajePrueba/personaje_prueba2.gd" id="3_8vix5"]
 [ext_resource type="PackedScene" uid="uid://bw03st07qmh5x" path="res://Objetos/trampolin.tscn" id="3_uqu8t"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ss6bw"]
@@ -22,25 +24,29 @@ mesh = SubResource("BoxMesh_ss6bw")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Suelo"]
 shape = SubResource("BoxShape3D_ss6bw")
 
-[node name="Luz" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.7850467, 0.61943656, 0, -0.61943656, 0.7850467, 0, 15.805849, 15.61705)
-shadow_enabled = true
-
-[node name="RigidBody3D" parent="." instance=ExtResource("1_x21ax")]
-transform = Transform3D(1, 0, 0, 0, 0.8346941, 0.55071384, 0, -0.55071384, 0.8346941, 15.424164, 26.944992, 0)
-
-[node name="Camara" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 22.418266, 29.011932)
-
 [node name="PersonajePrueba" parent="." node_paths=PackedStringArray("cam_camara") instance=ExtResource("2_b0te4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.0929737, 0)
-f_velocidad = 15.0
-f_velocidad_caida = -30.0
-f_velocidad_salto = 30.0
-f_altura_maxima_salto = 5.0
-f_friccion_suelo = 10.0
-f_friccion_aire = 5.0
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 10, 0)
+script = ExtResource("3_8vix5")
+gravedad_caida = -20.0
+f_friccion_suelo = 1000.0
+f_velocidad_salto = 7.0
+gravedad_salto = -12.0
 cam_camara = NodePath("../Camara")
+metadata/_edit_group_ = true
+
+[node name="Punto_primera_persona2" type="Node3D" parent="PersonajePrueba"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 1.5)
+
+[node name="Punto_tercera_persona2" type="Node3D" parent="PersonajePrueba"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 5, 7)
+
+[node name="Camara" type="Camera3D" parent="." node_paths=PackedStringArray("punto_primera_persona")]
+transform = Transform3D(1, 0, 0, 0, 0.847539, 0.5307331, 0, -0.5307331, 0.847539, 0, 32.42836, 32.16713)
+script = ExtResource("2_85k6h")
+punto_primera_persona = NodePath("../PersonajePrueba/Punto_tercera_persona2")
+
+[node name="Cubo" parent="." instance=ExtResource("1_x21ax")]
+transform = Transform3D(1, 0, 0, 0, 0.8346941, 0.55071384, 0, -0.55071384, 0.8346941, 15.424164, 26.944992, 0)
 
 [node name="Trampolin" parent="." instance=ExtResource("3_uqu8t")]
 transform = Transform3D(4.2654333, -0.52176917, 0, 2.6088462, 0.85308677, 0, 0, 0, 4.9999995, 39.245537, 3.8921614, 0)
@@ -53,3 +59,7 @@ fuerza_impulso = 35.0
 [node name="Trampolin3" parent="." instance=ExtResource("3_uqu8t")]
 transform = Transform3D(5, 0, 0, 0, 0.3537034, -4.6767874, 0, 0.93535745, 1.768517, 0, 6.2346926, -28.726845)
 fuerza_impulso = 30.0
+
+[node name="Luz" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.7850467, 0.61943656, 0, -0.61943656, 0.7850467, 0, 15.805849, 15.61705)
+shadow_enabled = true
