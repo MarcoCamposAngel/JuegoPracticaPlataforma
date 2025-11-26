@@ -1,17 +1,17 @@
 extends CharacterBody3D
 
 # Velocidad general del personaje
-@export var f_velocidad:float = 5.0
-@export var gravedad_caida := -20.0        # mientras cae
+@export var f_velocidad: float = 5.0
+@export var gravedad_caida: float = -20.0
 @export var f_friccion_suelo: float = 4.0
 @export var f_friccion_aire: float = 1.0
 
 # Parametros relacionados con el salto
-@export var f_velocidad_salto:float = 7.0
-@export var gravedad_salto := -12.0        # mientras sube
-
-@export var cam_camara : Camera3D
+@export var f_velocidad_salto: float = 7.0
 @export var moverse_aire := false
+
+# variables exportadas
+@export var cam_camara : Camera3D
 
 # Variables internas
 var raton_capturado := true
@@ -19,7 +19,7 @@ var raton_capturado := true
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	raton_capturado = Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
 	orientar_personaje()
 	pausar()
@@ -55,8 +55,8 @@ func aplicar_impulso_trampolin(trampolin: Trampolin) -> void:
 func ajustar_velocidad(delta: float, direccion: Vector3) -> void:
 	if direccion != Vector3.ZERO:
 		if is_on_floor() or moverse_aire:
-			velocity.x = direccion.x * f_velocidad
-			velocity.z = direccion.z * f_velocidad
+			velocity.x += direccion.x * f_velocidad
+			velocity.z += direccion.z * f_velocidad
 	else:
 		if is_on_floor():
 			velocity.x = move_toward(velocity.x, 0, f_friccion_suelo * delta)
@@ -68,14 +68,11 @@ func ajustar_velocidad(delta: float, direccion: Vector3) -> void:
 
 func saltar() -> void:
 	if Input.is_action_just_pressed("saltar") and is_on_floor():
-		velocity.y = f_velocidad_salto
+		velocity.y += f_velocidad_salto
 
 func aplicar_gravedad(delta: float) -> void:
 	if not is_on_floor():
-		if velocity.y > 0: # Si ha saltado
-			velocity.y += gravedad_salto * delta
-		else : # Si está cayendo de forma natural o empieza a caer despues de un salto
-			velocity.y += gravedad_caida * delta
+		velocity.y += gravedad_caida * delta
 
 func obtener_direccion_movimiento() -> Vector3:
 	var entrada := Vector2(
@@ -95,7 +92,7 @@ func obtener_direccion_movimiento() -> Vector3:
 func orientar_personaje() -> void:
 	# Aplicamos la rotación del eje y al personaje
 	if raton_capturado:
-		rotation.y = cam_camara.rotation.y
+		rotation_degrees.y = cam_camara.rotation.y
 
 func pausar() -> void:
 	if Input.is_action_just_pressed("pausa"):

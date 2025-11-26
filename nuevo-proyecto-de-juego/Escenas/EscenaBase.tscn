@@ -27,17 +27,16 @@ shape = SubResource("BoxShape3D_ss6bw")
 [node name="PersonajePrueba" parent="." node_paths=PackedStringArray("cam_camara") instance=ExtResource("2_b0te4")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 10, 0)
 script = ExtResource("3_8vix5")
-f_velocidad = 30.0
+f_velocidad = 1.0
 gravedad_caida = -60.0
-f_friccion_suelo = 10000.0
+f_friccion_suelo = 100.0
 f_velocidad_salto = 25.0
-gravedad_salto = -75.0
+moverse_aire = true
 cam_camara = NodePath("../Camara")
-moverse_aire = false
 metadata/_edit_group_ = true
 
 [node name="Punto_primera_persona2" type="Node3D" parent="PersonajePrueba"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Punto_tercera_persona2" type="Node3D" parent="PersonajePrueba"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 5, 7)
@@ -45,10 +44,10 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 5
 [node name="Camara" type="Camera3D" parent="." node_paths=PackedStringArray("punto_primera_persona")]
 transform = Transform3D(1, 0, 0, 0, 0.847539, 0.5307331, 0, -0.5307331, 0.847539, 0, 32.42836, 32.16713)
 script = ExtResource("2_85k6h")
-punto_primera_persona = NodePath("../PersonajePrueba/Punto_tercera_persona2")
+punto_primera_persona = NodePath("../PersonajePrueba/Punto_primera_persona2")
 
 [node name="Cubo" parent="." instance=ExtResource("1_x21ax")]
-transform = Transform3D(1, 0, 0, 0, 0.8346941, 0.55071384, 0, -0.55071384, 0.8346941, 15.424164, 26.944992, 0)
+transform = Transform3D(1, 0, 0, 0, 0.8346941, 0.55071384, 0, -0.55071384, 0.8346941, 15.424164, 26.944992, 20.312864)
 
 [node name="Trampolin" parent="." instance=ExtResource("3_uqu8t")]
 transform = Transform3D(4.2654333, -0.52176917, 0, 2.6088462, 0.85308677, 0, 0, 0, 4.9999995, 39.245537, 3.8921614, 0)
