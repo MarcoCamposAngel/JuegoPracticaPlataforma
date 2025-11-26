@@ -15,7 +15,7 @@ size = Vector3(50, 1, 50)
 [node name="NodoBase" type="Node3D"]
 
 [node name="Suelo" type="StaticBody3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.5, 0)
+transform = Transform3D(50, 0, 0, 0, 2, 0, 0, 0, 50, 0, -0.5, 0)
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Suelo"]
@@ -27,7 +27,8 @@ shape = SubResource("BoxShape3D_ss6bw")
 [node name="PersonajePrueba" parent="." node_paths=PackedStringArray("cam_camara") instance=ExtResource("2_b0te4")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 10, 0)
 script = ExtResource("3_8vix5")
-f_velocidad = 1.0
+f_aceleracion = 1.0
+f_velocidad_max = 50.0
 gravedad_caida = -60.0
 f_friccion_suelo = 100.0
 f_velocidad_salto = 25.0

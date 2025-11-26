@@ -1,7 +1,8 @@
 extends CharacterBody3D
 
 # Velocidad general del personaje
-@export var f_velocidad: float = 5.0
+@export var f_aceleracion: float = 5.0
+@export var f_velocidad_max: float = 35.0
 @export var gravedad_caida: float = -20.0
 @export var f_friccion_suelo: float = 4.0
 @export var f_friccion_aire: float = 1.0
@@ -55,8 +56,15 @@ func aplicar_impulso_trampolin(trampolin: Trampolin) -> void:
 func ajustar_velocidad(delta: float, direccion: Vector3) -> void:
 	if direccion != Vector3.ZERO:
 		if is_on_floor() or moverse_aire:
-			velocity.x += direccion.x * f_velocidad
-			velocity.z += direccion.z * f_velocidad
+			velocity.x += direccion.x * f_aceleracion
+			velocity.z += direccion.z * f_aceleracion
+			
+		var vel_plana := Vector2(velocity.x, velocity.z)
+		if vel_plana.length() > f_velocidad_max:
+			vel_plana = vel_plana.normalized() * f_velocidad_max
+			velocity.x = vel_plana.x
+			velocity.z = vel_plana.y
+		
 	else:
 		if is_on_floor():
 			velocity.x = move_toward(velocity.x, 0, f_friccion_suelo * delta)
